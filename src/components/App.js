@@ -1,22 +1,19 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect, useCallback } from "react";
 import "../styles/App.css";
 
 const App = () => {
   const [renderBall, setRenderBall] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [ballPosition,setBallPosition] = useState({
+  const [ballPosition, setBallPosition] = useState({
     left: "0px",
     top: "0px",
   });
-  const reset = () => {
-    setRenderBall(!renderBall);
-    setBallPosition({ left: "0px", top: "0px" });
-  };
-  const renderChoice = () => {};
+
   const start = () => {
     setRenderBall(!renderBall);
   };
+
   const keyHandler = (event) => {
     let ballPositionClone = { ...ballPosition };
 
@@ -45,10 +42,17 @@ const App = () => {
     setBallPosition(ballPositionClone);
     // console.log(ballPosition);
   };
+
   useEffect(() => {
     window.addEventListener("keydown", keyHandler);
     return () => window.removeEventListener("keydown", keyHandler);
   });
+
+  const reset = () => {
+    setRenderBall(!renderBall);
+    setBallPosition({ left: "0px", top: "0px" });
+  };
+  const renderChoice = () => {};
 
   let compo;
   if (renderBall) {
@@ -68,6 +72,7 @@ const App = () => {
 
   return (
     <div className="playground">
+      {compo}
       <button onClick={reset} className="reset">
         Reset
       </button>
